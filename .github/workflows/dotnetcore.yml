@@ -23,3 +23,13 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+    - name: Pack
+      run: dotnet pack --configuration release
+    - name: Push Nupkg to GitHub Packages
+      uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+      with:
+        # Path of NuPkg
+        nupkg-path: '/home/runner/work/calc/calc/src/Calc.Core/bin/Release/netstandard2.0/*.nupkg'
+        repo-owner: 'esmelov'
+        gh-user: 'esmelov'
+        token: ${{ secrets.GITHUB_TOKEN }}
