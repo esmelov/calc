@@ -8,14 +8,12 @@ on:
 
 jobs:
   build:
-
-    runs-on: [self-hosted, Windows, X64]
-
+    runs-on: [self-hosted, windows, x64]
     steps:
     - shell: pwsh
     - uses: actions/checkout@v2
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v1.4.0
       with:
         dotnet-version: 3.1.101
     - name: Install dependencies
