@@ -32,4 +32,4 @@ jobs:
         nupkg-path: '/home/runner/work/calc/calc/src/Calc.Core/bin/Release/*.nupkg'
         repo-owner: 'esmelov'
         gh-user: 'esmelov'
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.TOKEN }}
