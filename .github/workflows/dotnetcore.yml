@@ -8,8 +8,9 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, windows, x64]
+    runs-on: ubuntu-latest
     steps:
+    - shell: bash
     - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1.4.0
