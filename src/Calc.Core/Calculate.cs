@@ -9,7 +9,7 @@ namespace Calc.Core
     public class Calculate : ICalculate
     {
         [DebuggerDisplay("Type: {Type}; Operation: {Operation}")]
-        public sealed class OperationCacheKey : IEquatable<OperationCacheKey>
+        private sealed class OperationCacheKey : IEquatable<OperationCacheKey>
         {
             public OperationCacheKey(Type type, Operation operation)
             {
@@ -46,8 +46,6 @@ namespace Calc.Core
         private static readonly ConcurrentDictionary<OperationCacheKey, Delegate>
             _cache = new ConcurrentDictionary<OperationCacheKey, Delegate>();
 
-        public int Count => _cache.Count;
-
         public T Add<T>(T a, T b)
             => GetFunc<T>(Operation.Add)(a, b);
 
@@ -61,8 +59,7 @@ namespace Calc.Core
             => GetFunc<T>(Operation.Divide)(a, b);
 
         private static Func<T, T, T> GetFunc<T>(Operation operation)
-            => (Func<T, T, T>) _cache.GetOrAdd(
-                new OperationCacheKey(typeof(T), operation), BuildFunc);
+            => (Func<T, T, T>) _cache.GetOrAdd(new OperationCacheKey(typeof(T), operation), BuildFunc);
 
         private static Delegate BuildFunc(OperationCacheKey key)
         {
@@ -74,7 +71,7 @@ namespace Calc.Core
                 Operation.Subtract => Expression.SubtractChecked(paramA, paramB),
                 Operation.Multiply => Expression.MultiplyChecked(paramA, paramB),
                 Operation.Divide => Expression.Divide(paramA, paramB),
-                _ => throw new NotImplementedException()
+                _ => throw new NotSupportedException($"Not supported for {key.Operation}.")
             };
             var lambda = Expression.Lambda(expr, paramA, paramB);
             return lambda.Compile();
