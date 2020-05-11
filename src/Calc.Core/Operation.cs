@@ -1,6 +1,6 @@
 ﻿namespace Calc.Core
 {
-    public enum Operation
+    public enum Operation : byte
     {
         Add,
         Subtract,

@@ -1,13 +1,15 @@
 ﻿using Calc.Core.Abstraction;
 using System;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace Calc.Core
 {
     public class Calculate : ICalculate
     {
-        private sealed class OperationCacheKey : IEquatable<OperationCacheKey>
+        [DebuggerDisplay("Type: {Type}; Operation: {Operation}")]
+        public sealed class OperationCacheKey : IEquatable<OperationCacheKey>
         {
             public OperationCacheKey(Type type, Operation operation)
             {
@@ -21,35 +23,31 @@ namespace Calc.Core
 
             public bool Equals(OperationCacheKey other)
             {
-                if (ReferenceEquals(null, other)) return false;
                 if (ReferenceEquals(this, other)) return true;
-                return Equals(Type, other.Type) && Operation == other.Operation;
+
+                return other != null &&
+                       other.Type == Type &&
+                       other.Operation == Operation;
             }
 
             public override bool Equals(object obj)
-            {
-                return ReferenceEquals(this, obj) || obj is OperationCacheKey other && Equals(other);
-            }
+                => Equals(obj as OperationCacheKey);
 
             public override int GetHashCode()
-            {
-                return HashCode.Combine(Type, Operation);
-            }
+                => HashCode.Combine(Type, Operation);
 
             public static bool operator ==(OperationCacheKey left, OperationCacheKey right)
-            {
-                return Equals(left, right);
-            }
+                => Equals(left, right);
 
             public static bool operator !=(OperationCacheKey left, OperationCacheKey right)
-            {
-                return !Equals(left, right);
-            }
+                => !Equals(left, right);
         }
 
         private static readonly ConcurrentDictionary<OperationCacheKey, Delegate>
             _cache = new ConcurrentDictionary<OperationCacheKey, Delegate>();
-        
+
+        public int Count => _cache.Count;
+
         public T Add<T>(T a, T b)
             => GetFunc<T>(Operation.Add)(a, b);
 
@@ -72,9 +70,9 @@ namespace Calc.Core
             var paramB = Expression.Parameter(key.Type, "b");
             var expr = key.Operation switch
             {
-                Operation.Add => Expression.Add(paramA, paramB),
-                Operation.Subtract => Expression.Subtract(paramA, paramB),
-                Operation.Multiply => Expression.Multiply(paramA, paramB),
+                Operation.Add => Expression.AddChecked(paramA, paramB),
+                Operation.Subtract => Expression.SubtractChecked(paramA, paramB),
+                Operation.Multiply => Expression.MultiplyChecked(paramA, paramB),
                 Operation.Divide => Expression.Divide(paramA, paramB),
                 _ => throw new NotImplementedException()
             };

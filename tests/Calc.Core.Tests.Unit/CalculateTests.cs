@@ -17,17 +17,13 @@ namespace Calc.Core.Tests.Unit
         [Test]
         public void AdditionDoubleTest_ShouldBeOk()
         {
-            var result = calculate.Add(5.0, 3.0);
-
-            Assert.AreEqual(8.0, result);
+            Assert.AreEqual(8.0, calculate.Add(5.0, 3.0));
         }
 
         [Test]
         public void SubtractionDoubleTest_ShouldBeOk()
         {
-            var result = calculate.Subtract(5.0, 3.0);
-
-            Assert.AreEqual(2.0, result);
+            Assert.AreEqual(2.0, calculate.Subtract(5.0, 3.0));
         }
 
         [TestCase(4, 2, 2)]
