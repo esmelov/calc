@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Calc.Core.Abstraction
+﻿namespace Calc.Core.Abstraction
 {
     public interface ICalculate
     {
