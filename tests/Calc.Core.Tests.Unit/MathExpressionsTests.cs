@@ -33,27 +33,22 @@ namespace Calc.Core.Tests.Unit
         [Test]
         public void BinaryMathExpression2_Double_ShouldBeOk()
         {
-            // 5·6
+            // 5·6:3
             var expr1 = new UnaryMathExpression<double>(5d)
-                .Multiply(new UnaryMathExpression<double>(6d));
-
-            // expr1 / 3
-            var expr2 = expr1.Divide(new UnaryMathExpression<double>(3d));
+                .Multiply(new UnaryMathExpression<double>(6d))
+                .Divide(new UnaryMathExpression<double>(3d));
 
             // 4 / 2
-            var expr3 = new UnaryMathExpression<double>(4d)
+            var expr2 = new UnaryMathExpression<double>(4d)
                 .Divide(new UnaryMathExpression<double>(2d));
 
-            // 17 - expr2
-            var expr4 = new UnaryMathExpression<double>(17d).Subtract(expr2);
+            // 17 - expr1 - 2 + expr2
+            var expr3 = new UnaryMathExpression<double>(17d)
+                .Subtract(expr1)
+                .Subtract(new UnaryMathExpression<double>(2d))
+                .Add(expr2);
 
-            // expr4 - 2
-            var expr5 = expr4.Subtract(new UnaryMathExpression<double>(2d));
-
-            // expr5 - expr3
-            var expr6 = expr5.Add(expr3);
-
-            var r = expr6.Compile()();
+            var r = expr3.Compile()();
 
             Assert.AreEqual(typeof(double), r.GetType());
             Assert.AreEqual(7d, r);

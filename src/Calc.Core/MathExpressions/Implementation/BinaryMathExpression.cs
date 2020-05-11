@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 namespace Calc.Core.MathExpressions
 {
     public class BinaryMathExpression<T> : MathExpression<T>
+        where T : struct
     {
         public BinaryMathExpression(MathExpression<T> left, MathExpression<T> right, Operation operation)
         {

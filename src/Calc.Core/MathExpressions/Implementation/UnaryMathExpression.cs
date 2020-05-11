@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 namespace Calc.Core.MathExpressions
 {
     public class UnaryMathExpression<T> : MathExpression<T>
+        where T : struct
     {
         public UnaryMathExpression(T value)
             => Value = value;
