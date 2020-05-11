@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Calc.Core.Abstraction
+namespace Calc.Core.MathExpressions.Abstract
 {
     public abstract class MathExpression<T>
     {

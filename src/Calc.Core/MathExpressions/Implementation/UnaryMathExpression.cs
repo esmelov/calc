@@ -1,7 +1,7 @@
-﻿using Calc.Core.Abstraction;
+﻿using Calc.Core.MathExpressions.Abstract;
 using System.Linq.Expressions;
 
-namespace Calc.Core
+namespace Calc.Core.MathExpressions
 {
     public class UnaryMathExpression<T> : MathExpression<T>
     {
