@@ -1,4 +1,5 @@
 ﻿using Calc.Core.MathExpressions;
+using Calc.Core.MathExpressions.Extensions;
 using NUnit.Framework;
 
 namespace Calc.Core.Tests.Unit
@@ -18,11 +19,9 @@ namespace Calc.Core.Tests.Unit
         [Test]
         public void BinaryMathExpression_Double_ShouldBeOk()
         {
-            var expr = new BinaryMathExpression<double>(
-                new UnaryMathExpression<double>(5d),
-                new BinaryMathExpression<double>(
-                    new UnaryMathExpression<double>(3d), new UnaryMathExpression<double>(4d), Operation.Multiply),
-                Operation.Add);
+            var expr = new UnaryMathExpression<double>(5d).Add(
+                new UnaryMathExpression<double>(3d)
+                    .Multiply(new UnaryMathExpression<double>(4d)));
 
             var r = expr.Compile()();
 
@@ -35,37 +34,24 @@ namespace Calc.Core.Tests.Unit
         public void BinaryMathExpression2_Double_ShouldBeOk()
         {
             // 5·6
-            var expr1 = new BinaryMathExpression<double>(
-                new UnaryMathExpression<double>(5d),
-                new UnaryMathExpression<double>(6d),
-                Operation.Multiply);
+            var expr1 = new UnaryMathExpression<double>(5d)
+                .Multiply(new UnaryMathExpression<double>(6d));
 
             // expr1 / 3
-            var expr2 = new BinaryMathExpression<double>(
-                expr1,
-                new UnaryMathExpression<double>(3d),
-                Operation.Divide);
+            var expr2 = expr1.Divide(new UnaryMathExpression<double>(3d));
 
             // 4 / 2
-            var expr3 = new BinaryMathExpression<double>(
-                new UnaryMathExpression<double>(4d),
-                new UnaryMathExpression<double>(2d),
-                Operation.Divide);
+            var expr3 = new UnaryMathExpression<double>(4d)
+                .Divide(new UnaryMathExpression<double>(2d));
 
             // 17 - expr2
-            var expr4 = new BinaryMathExpression<double>(
-                new UnaryMathExpression<double>(17d),
-                expr2,
-                Operation.Subtract);
+            var expr4 = new UnaryMathExpression<double>(17d).Subtract(expr2);
 
             // expr4 - 2
-            var expr5 = new BinaryMathExpression<double>(
-                expr4,
-                new UnaryMathExpression<double>(2d),
-                Operation.Subtract);
+            var expr5 = expr4.Subtract(new UnaryMathExpression<double>(2d));
 
             // expr5 - expr3
-            var expr6 = new BinaryMathExpression<double>(expr5, expr3, Operation.Add);
+            var expr6 = expr5.Add(expr3);
 
             var r = expr6.Compile()();
 
