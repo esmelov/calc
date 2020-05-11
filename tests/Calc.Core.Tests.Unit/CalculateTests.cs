@@ -1,3 +1,4 @@
+using Calc.Core.Abstraction;
 using NUnit.Framework;
 using System;
 
@@ -5,37 +6,47 @@ namespace Calc.Core.Tests.Unit
 {
     public class CalculateTests
     {
-        [Test]
-        public void AdditionTest_ShouldBeOk()
+        protected ICalculate calculate;
+
+        [OneTimeSetUp]
+        public void SetUp()
         {
-            Assert.Pass();
+            calculate = new Calculate();
         }
 
         [Test]
-        public void SubstractionTest_ShouldBeOk()
+        public void AdditionDoubleTest_ShouldBeOk()
         {
-            Assert.Pass();
+            var result = calculate.Add(5.0, 3.0);
+
+            Assert.AreEqual(8.0, result);
+        }
+
+        [Test]
+        public void SubtractionDoubleTest_ShouldBeOk()
+        {
+            var result = calculate.Subtract(5.0, 3.0);
+
+            Assert.AreEqual(2.0, result);
         }
 
         [TestCase(4, 2, 2)]
         [TestCase(2, 4, 0)]
         public void DivideTest_ShouldBeOk(int a, int b, int expectedResult)
         {
-            var calculator = new Calculate();
-            Assert.AreEqual(expectedResult, calculator.Divide(a, b));
+            Assert.AreEqual(expectedResult, calculate.Divide(a, b));
         }
 
         [Test]
         public void DivideByZeroTest_ShouldBeOk()
         {
-            var calculator = new Calculate();
-            Assert.Throws<DivideByZeroException>(() => calculator.Divide(1, 0));
+            Assert.Throws<DivideByZeroException>(() => calculate.Divide(1, 0));
         }
 
         [Test]
         public void MultiplyTest_ShouldBeOk()
         {
-            Assert.Pass();
+            Assert.AreEqual(-12m, calculate.Multiply(3m, -4m));
         }
     }
 }

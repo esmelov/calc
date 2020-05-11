@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
+
     <PackageId>Calc.Core</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Eugene Smelov</Authors>
     <PackageDescription>My first package</PackageDescription>
     <RepositoryUrl>https://github.com/esmelov/calc</RepositoryUrl>
