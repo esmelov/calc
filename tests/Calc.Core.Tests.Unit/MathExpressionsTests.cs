@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Calc.Core.Tests.Unit
 {
-    public class MathExpressionsTests : BaseTestClass
+    public class MathExpressionsTests
     {
         [Test]
         public void UnaryMathExpressionTest_Double_ShouldBeOk()
