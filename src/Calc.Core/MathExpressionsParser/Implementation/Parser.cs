@@ -9,6 +9,7 @@ using System.Text;
 
 namespace Calc.Core.MathExpressionsParser
 {
+
     public class Parser : IParser<Func<double>>
     {
         private Parser()
