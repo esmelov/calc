@@ -40,11 +40,7 @@ namespace Calc.Core
         private static readonly ConcurrentDictionary<OperationCacheKey, Delegate> _cache = new();
 
         public T Add<T>(T a, T b)
-        {
-            var i = GetFunc<T>(Operation.Add)(a, b);
-            Console.WriteLine(_cache.Count);
-            return i;
-        }
+            => GetFunc<T>(Operation.Add)(a, b);
 
         public T Subtract<T>(T a, T b)
             => GetFunc<T>(Operation.Subtract)(a, b);
