@@ -9,7 +9,7 @@ namespace Calc.Core
     public class Calculate : ICalculate
     {
         [DebuggerDisplay("Type: {Type}; Operation: {Operation}")]
-        private sealed class OperationCacheKey : IEquatable<OperationCacheKey>
+        private readonly struct OperationCacheKey : IEquatable<OperationCacheKey>
         {
             public OperationCacheKey(Type type, Operation operation)
             {
@@ -23,15 +23,12 @@ namespace Calc.Core
 
             public bool Equals(OperationCacheKey other)
             {
-                if (ReferenceEquals(this, other)) return true;
-
-                return other != null &&
-                       other.Type == Type &&
+                return other.Type == Type &&
                        other.Operation == Operation;
             }
 
             public override bool Equals(object obj)
-                => Equals(obj as OperationCacheKey);
+                => Equals((OperationCacheKey)obj);
 
             public override int GetHashCode()
                 => HashCode.Combine(Type, Operation);
@@ -74,6 +71,7 @@ namespace Calc.Core
                 _ => throw new NotSupportedException($"Not supported for {key.Operation}.")
             };
             var lambda = Expression.Lambda(expr, paramA, paramB);
+
             return lambda.Compile();
         }
     }
