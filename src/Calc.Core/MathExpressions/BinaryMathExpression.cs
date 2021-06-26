@@ -36,8 +36,6 @@ namespace Calc.Core.MathExpressions
         }
 
         public static BinaryMathExpression<T> operator *(BinaryMathExpression<T> left, UnaryMathExpression<T> right)
-        {
-            return new BinaryMathExpression<T>(left, right, Operation.Multiply);
-        }
+            => new BinaryMathExpression<T>(left, right, Operation.Multiply);
     }
 }

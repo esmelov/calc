@@ -15,23 +15,15 @@ namespace Calc.Core.MathExpressions
             => Expression.Constant(Value, Type);
 
         public static BinaryMathExpression<T> operator +(UnaryMathExpression<T> left, BinaryMathExpression<T> right)
-        {
-            return new BinaryMathExpression<T>(left, right, Operation.Add);
-        }
+            => new BinaryMathExpression<T>(left, right, Operation.Add);
 
         public static BinaryMathExpression<T> operator -(UnaryMathExpression<T> left, UnaryMathExpression<T> right)
-        {
-            return new BinaryMathExpression<T>(left, right, Operation.Subtract);
-        }
+            => new BinaryMathExpression<T>(left, right, Operation.Subtract);
 
         public static BinaryMathExpression<T> operator *(UnaryMathExpression<T> left, UnaryMathExpression<T> right)
-        {
-            return new BinaryMathExpression<T>(left, right, Operation.Multiply);
-        }
+            => new BinaryMathExpression<T>(left, right, Operation.Multiply);
 
         public static BinaryMathExpression<T> operator /(UnaryMathExpression<T> left, UnaryMathExpression<T> right)
-        {
-            return new BinaryMathExpression<T>(left, right, Operation.Divide);
-        }
+            => new BinaryMathExpression<T>(left, right, Operation.Divide);
     }
 }

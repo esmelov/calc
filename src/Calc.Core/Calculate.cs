@@ -22,10 +22,7 @@ namespace Calc.Core
             public Operation Operation { get; }
 
             public bool Equals(OperationCacheKey other)
-            {
-                return other.Type == Type &&
-                       other.Operation == Operation;
-            }
+                => other.Type == Type && other.Operation == Operation;
 
             public override bool Equals(object obj)
                 => Equals((OperationCacheKey)obj);
@@ -40,11 +37,14 @@ namespace Calc.Core
                 => !Equals(left, right);
         }
 
-        private static readonly ConcurrentDictionary<OperationCacheKey, Delegate>
-            _cache = new ConcurrentDictionary<OperationCacheKey, Delegate>();
+        private static readonly ConcurrentDictionary<OperationCacheKey, Delegate> _cache = new();
 
         public T Add<T>(T a, T b)
-            => GetFunc<T>(Operation.Add)(a, b);
+        {
+            var i = GetFunc<T>(Operation.Add)(a, b);
+            Console.WriteLine(_cache.Count);
+            return i;
+        }
 
         public T Subtract<T>(T a, T b)
             => GetFunc<T>(Operation.Subtract)(a, b);

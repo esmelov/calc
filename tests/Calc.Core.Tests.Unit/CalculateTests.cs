@@ -5,10 +5,11 @@ namespace Calc.Core.Tests.Unit
 {
     public class CalculateTests : BaseTestClass
     {
-        [Test]
-        public void AdditionDoubleTest_ShouldBeOk()
+        [TestCase(5.0, 3.0, 8.0)]
+        [TestCase(2.2, 4.3, 6.5)]
+        public void AdditionDoubleTest_ShouldBeOk(double a, double b, double expectedResult)
         {
-            Assert.AreEqual(8.0, calculate.Add(5.0, 3.0));
+            Assert.AreEqual(expectedResult, calculate.Add(a, b));
         }
 
         [Test]
