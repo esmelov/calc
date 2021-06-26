@@ -19,9 +19,9 @@ namespace Calc.Core.Tests.Unit
         [Test]
         public void BinaryMathExpression_Double_ShouldBeOk()
         {
-            var expr = new UnaryMathExpression<double>(5d).Add(
-                new UnaryMathExpression<double>(3d)
-                    .Multiply(new UnaryMathExpression<double>(4d)));
+            var expr = new UnaryMathExpression<double>(5d)
+                       + new UnaryMathExpression<double>(3d)
+                       * new UnaryMathExpression<double>(4d);
 
             var r = expr.Compile()();
 

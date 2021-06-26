@@ -34,5 +34,8 @@ namespace Calc.Core.MathExpressions
                 _ => throw new NotSupportedException($"Not supported for {Operation}.")
             };
         }
+
+        public static BinaryMathExpression<T> operator *(BinaryMathExpression<T> left, UnaryMathExpression<T> right)
+            => new BinaryMathExpression<T>(left, right, Operation.Multiply);
     }
 }

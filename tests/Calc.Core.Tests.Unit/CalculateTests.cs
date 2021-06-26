@@ -9,15 +9,16 @@ namespace Calc.Core.Tests.Unit
         private ICalculate _calculate;
 
         [OneTimeSetUp]
-        public void SetUp()
+        public void Setup()
         {
             _calculate = new Calculate();
         }
 
-        [Test]
-        public void AdditionDoubleTest_ShouldBeOk()
+        [TestCase(5.0, 3.0, 8.0)]
+        [TestCase(2.2, 4.3, 6.5)]
+        public void AdditionDoubleTest_ShouldBeOk(double a, double b, double expectedResult)
         {
-            Assert.AreEqual(8.0, _calculate.Add(5.0, 3.0));
+            Assert.AreEqual(expectedResult, _calculate.Add(a, b));
         }
 
         [Test]
