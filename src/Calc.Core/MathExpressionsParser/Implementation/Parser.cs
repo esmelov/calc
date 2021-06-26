@@ -25,7 +25,7 @@ namespace Calc.Core.MathExpressionsParser
             return InternalParse(inputReader, new StringBuilder()).Compile();
         }
 
-        private static Dictionary<char, int> _priority = new Dictionary<char, int>
+        private static Dictionary<char, int> _priority = new()
         { ['+'] = 0, ['-'] = 0, ['*'] = 1, ['/'] = 1, [':'] = 1 };
 
         private static MathExpression<double> InternalParse(TextReader reader, StringBuilder accumulator)
@@ -94,10 +94,5 @@ namespace Calc.Core.MathExpressionsParser
                 ? (MathExpression<double>) tempExpr
                 : new BinaryMathExpression<double>(expr, tempExpr, operation);
         }
-
-        //private static MathExpression<double> IterationMultiply(MathExpression<double> expr, StringBuilder accumulator, Operation operation)
-        //{
-
-        //}
     }
 }

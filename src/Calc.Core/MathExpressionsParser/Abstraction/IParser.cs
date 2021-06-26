@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Calc.Core.MathExpressionsParser.Abstraction
+﻿namespace Calc.Core.MathExpressionsParser.Abstraction
 {
     public interface IParser<out TOut>
     {

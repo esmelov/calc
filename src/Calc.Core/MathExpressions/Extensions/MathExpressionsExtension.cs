@@ -8,8 +8,7 @@ namespace Calc.Core.MathExpressions.Extensions
         public static MathExpression<T> Add<T>(this MathExpression<T> left, MathExpression<T> right)
             where T : struct
         {
-            if (left == null || right == null)
-                throw new ArgumentNullException($"{nameof(left)} or {nameof(right)} cannot be null");
+            Check(left, right);
 
             return new BinaryMathExpression<T>(left, right, Operation.Add);
         }
@@ -17,8 +16,7 @@ namespace Calc.Core.MathExpressions.Extensions
         public static MathExpression<T> Subtract<T>(this MathExpression<T> left, MathExpression<T> right)
             where T : struct
         {
-            if (left == null || right == null)
-                throw new ArgumentNullException($"{nameof(left)} or {nameof(right)} cannot be null");
+            Check(left, right);
 
             return new BinaryMathExpression<T>(left, right, Operation.Subtract);
         }
@@ -26,8 +24,7 @@ namespace Calc.Core.MathExpressions.Extensions
         public static MathExpression<T> Multiply<T>(this MathExpression<T> left, MathExpression<T> right)
             where T : struct
         {
-            if (left == null || right == null)
-                throw new ArgumentNullException($"{nameof(left)} or {nameof(right)} cannot be null");
+            Check(left, right);
 
             return new BinaryMathExpression<T>(left, right, Operation.Multiply);
         }
@@ -35,10 +32,16 @@ namespace Calc.Core.MathExpressions.Extensions
         public static MathExpression<T> Divide<T>(this MathExpression<T> left, MathExpression<T> right)
             where T : struct
         {
-            if (left == null || right == null)
-                throw new ArgumentNullException($"{nameof(left)} or {nameof(right)} cannot be null");
+            Check(left, right);
 
             return new BinaryMathExpression<T>(left, right, Operation.Divide);
+        }
+
+        private static void Check<T>(MathExpression<T> left, MathExpression<T> right)
+            where T : struct
+        {
+            if (left == null || right == null)
+                throw new ArgumentNullException($"{nameof(left)} or {nameof(right)} cannot be null");
         }
     }
 }
